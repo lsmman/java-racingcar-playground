@@ -32,13 +32,22 @@ public class View {
 
             for (int i = 0; i < carNames.length; i++) {
                 carNames[i] = carNames[i].trim();
-                valid |= isValid(carNames[i]);
+                valid &= isValid(carNames[i]);
             }
         }
         return carNames;
     }
 
     private boolean isValid(String carName) {
+        int length = carName.length();
+        if (length >= 5){
+            return false;
+        }
+        for (int i = 0; i < length; i++) {
+            if (!Character.isAlphabetic(carName.charAt(i))){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -58,7 +67,11 @@ public class View {
     }
 
     private boolean isNumber(String input) {
-        return true;
+        boolean isDigit = true;
+        for (int i = 0; i < input.length(); i++) {
+            isDigit &= Character.isDigit(input.charAt(i));
+        }
+        return isDigit;
     }
 
     public void resultView(String result, String carDelimiter, String countDelimiter) {
@@ -73,18 +86,14 @@ public class View {
             carName = split[0];
             forward = Integer.parseInt(split[1]);
 
-            resultBuilder.append(carName + " : " + drawForward(forward) + "\n");
+            resultBuilder.append(carName);
+            resultBuilder.append(" : ");
+            resultBuilder.append("-".repeat(forward));
+            resultBuilder.append("\n");
         }
         System.out.println(resultBuilder);
     }
 
-    private String drawForward(int forward) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < forward; i++) {
-            builder.append('-');
-        }
-        return builder.toString();
-    }
 
     public void winnerView(List<String> winnerNames) {
         System.out.println(String.join(", ", winnerNames) + "가 최종 우승했습니다.");
