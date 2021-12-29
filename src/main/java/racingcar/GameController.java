@@ -14,8 +14,8 @@ public class GameController {
       - Car 중 간 거리가 가장 긴 우승자들 뽑기
       - 우승자 출력 후 게임 종료
      */
-    private static final String CAR_DELIMITER = ",";
-    private static final String COUNT_DELIMITER = ":";
+     static final String CAR_DELIMITER = ",";
+     static final String COUNT_DELIMITER = ":";
 
     List<Car> carList;
     View view;
@@ -31,19 +31,19 @@ public class GameController {
         controller.startGame();
     }
 
-    private void makeCarList(String[] carNames) {
+     void makeCarList(String[] carNames) {
         for (String carName : carNames) {
             carList.add(new Car(carName));
         }
     }
 
-    private void playGame() {
+     void playGame() {
         for (Car car : carList) {
             car.goForward();
         }
     }
 
-    private String makeResultString() {
+     String makeResultString() {
         List<String> resultStrings = new ArrayList<>();
 
         for (Car car : carList) {
@@ -69,7 +69,7 @@ public class GameController {
         view.winnerView(findWinners());
     }
 
-    private List<String> findWinners() {
+     List<String> findWinners() {
         int maxForward = carList.stream()
                 .max(Comparator.comparingInt(Car::getForward)).orElseThrow().getForward();
         List<String> winner = new ArrayList<>();
